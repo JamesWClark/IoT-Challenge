@@ -1,0 +1,63 @@
+<h1>{{ title }}</h1>
+<hr>
+
+<div><b>Step 1</b>: Install body-parser middleware with npm:</div>
+<div><code><pre>npm install body-parser --save</pre></code></div>
+
+<div><b>Step 2</b>: Verify the contents of your package.json file:</div>
+<div><code><pre>{
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
+  }
+}</pre></code></div>
+
+<div><b>Step 3</b>: Require the body-parser software at the top of your code:</div>
+<div><code><pre>var bodyParser = require('body-parser');</pre></code></div>
+
+<div><b>Step 4</b>: Use the body parser middleware before you write any routes:</div>
+<div><code><pre>app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));</pre></code></div>
+
+<div><b>Step 5</b>: Write a POST route for the home page:</div>
+<div><code><pre>app.post('/', function(req, res) {
+    console.log('post / = ' + req.body);
+    res.status(200).send('got it');
+});</pre></code></div>
+
+<div><b>Step 6</b>: This is what <b><code>server.js</code></b> should look like now:</div>
+<div><code><pre>var bodyParser = require('body-parser');
+var express = require('express');
+
+var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+
+app.post('/', function(req, res) {
+    console.log('post / = ' + JSON.stringify(req.body));
+    res.status(200).send('got it');
+});
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});</pre></code></div>
+
+<div><b>Step 7</b>: Run your server. If it's already running from a previous exercise, cancel it with Control + C and run it again.</div>
+<div><code><pre>node server</pre></code></div>
+
+<div><b>Step 8</b>: Since this is a POST route, we can't test it with our web browser's address bar - that's for GET requests only. Install the <a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US">Advanced Rest Client (ARC)</a> chrome plugin. Enter all of the following settings and click Send.</b></div>
+<br>
+<div><img src="img/arc.jpg"></div>
+
+<br>
+<div><b>Step 9</b>: Verify in terminal that you were able to successfully parse and display the object received in the POST request from ARC.</div>
+<div><code><pre>post / = {"lat":200,"lon":300,"dat":[1,2,3]}
+</pre></code></div>
+
+<br>
+<div><b>Step 10</b>: Demonstrate your progress to your instructor. You should have your server running ready to receive successful posts requests from ARC.</div>

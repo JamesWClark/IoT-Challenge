@@ -1,0 +1,26 @@
+<h1>{{ title }}</h1>
+<hr>
+
+<div><b>Step 1</b>: Create the following <b><code>server.js</code></b> file:</div>
+<div><code><pre>var express = require('express')
+var app = express()
+
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+});
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+});</pre></code></div>
+
+<div><b>Step 2</b>: Using command line, navigate to folder containing this file. For example, if your server.js file is located in <b><code>Documents/NodeProject</code></b>, you would change directories with the following command:</div>
+<div><code><pre>cd ~/Documents/NodeProject</pre></code></div>
+
+<div><b>Step 3</b>: Now that you're in the right folder in your terminal, use the following command to run the web server:</div>
+<div><code><pre>node server</pre></code></div>
+
+<div><b>Step 4</b>: Visit the page in your web browser: <b><a href="http://localhost:3000/">http://localhost:3000/</a></b></div>
+<br>
+<div><b>Step 5</b>: Verify that you see <b><code>Hello World!</code></b> when you visit the above link.</div>
+<br>
+<div><b>Step 6</b>: Before continuing on, notify your instructor when you've completed this task.</div>
