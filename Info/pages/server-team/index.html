@@ -1,1 +1,32 @@
-<div ng-include="parts/nav.html"></div>
+<!DOCTYPE html>
+<html lang="en" ng-app="iot">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Info</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular-route.min.js"></script>
+  <script src="scripts/main.js"></script>
+</head>
+
+<body ng-controller="mainController">
+
+  <h1>4 Roles</h1>
+  <hr>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#server-team">Server Team</a></li>
+    <li><a href="#client-team">Client Team</a></li>
+    <li><a href="#sensors-team">Sensors Team</a></li>
+  </ul>
+
+  <div id="main">
+    <div ng-view></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>
