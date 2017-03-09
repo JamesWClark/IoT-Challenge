@@ -6,7 +6,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         templateUrl: 'pages/home.html',
         controller: 'mainController'
     })
-    .when('/serverteam', {
+    .when('/clients-team', {
+        templateUrl : 'pages/clients-team/index.html',
+        controller : 'clientsController'
+    })
+    .when('/server-team', {
         templateUrl: 'pages/server-team/index.html',
         controller: 'serverTeamController'
     })
@@ -29,4 +33,8 @@ app.controller('serverTeamController', function($scope) {
 
 app.controller('sensorsController', function($scope) {
     $scope.view = "Sensors Team";
+});
+
+app.controller('clientsController', function($scope) {
+    $scope.view = "Clients Team";
 });
