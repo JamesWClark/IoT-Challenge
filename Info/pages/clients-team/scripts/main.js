@@ -42,7 +42,7 @@ app.controller('staticController', function($scope) {
     $scope.title = "Serve Static";
     $scope.description = 'Setup a static file server with Node.js';
 });
-/*
+
 // http://stackoverflow.com/a/28575776/1161948
 $(document).keydown(function(event) {
     if (event.keyCode == 123) {
@@ -56,4 +56,3 @@ $(document).keydown(function(event) {
 $(document).on("contextmenu",function(e){        
    e.preventDefault();
 });
-*/

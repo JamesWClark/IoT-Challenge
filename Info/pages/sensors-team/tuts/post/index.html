@@ -1,0 +1,71 @@
+<h1>{{ title }}</h1>
+<p class="description">{{ description }}</p>
+<hr>
+
+<div><b>Step 1:</b> In your Raspberry Pi, locate the <b><code>/home/pi/Desktop/GrovePi/Software/Python</code></b> folder. Open the <b><code>grove_ultrasonic.py</code></b> file.</div>
+
+<br>
+<div><b>Step 2:</b> In addition to a lot of comments, you should see the following code:</div>
+<div><code><pre>import grovepi
+
+# Connect the Grove Ultrasonic Ranger to digital port D4
+# SIG,NC,VCC,GND
+ultrasonic_ranger = 4
+
+while True:
+    try:
+        # Read distance value from Ultrasonic
+        print(grovepi.ultrasonicRead(ultrasonic_ranger))
+
+    except TypeError:
+        print ("Error")
+    except IOError:
+        print ("Error")</pre></code></div>
+
+<div><b>Step 3:</b> There are two important lines of code here: 1) <b><code>ultrasonic_ranger = 4</code></b> and 2) <b><code>print(grovepi.ultrasonicRead(ultrasonic_ranger))</code></b>. Make a mental note. We'll be copying and pasting from here soon.</div>
+
+<br>
+<div><b>Step 4:</b> In a previous class lecture, the following code was provided as a demonstration of sending JSON in Python with HTTP POST. Locate your previous work and incorporate the two lines (and the sensors obviously) from above. Modify the payload as well.</div>
+
+<div><code><pre>import time
+import requests
+import grovepi
+import sys
+
+ultrasonic_ranger = 4                    # Ultrasonic Ranger is connected to port D4
+dht11_port = 8                           # DHT22 temp & humidity sensor is connected to port D8
+
+url = "http://10.10.88.246:3000/echo"    # You need to get your server team's IP
+
+while True:
+  
+  try:
+
+    # Read the temperature and humidity
+
+    [temp, humi] = grovepi.dht(dht11_port, 0)               # second parameter:  0 = DHT22 sensor
+    ultrasonic = grovepi.ultrasonicRead(ultrasonic_ranger)
+    
+    print(temp, "C")
+    print(humi, "%")
+    print(ultrasonic)
+    
+    payload = { 'humi' : humi, 'temp' : temp, 'range' : ultrasonic }
+
+    requests.post(url, data=payload)    # write data
+
+    time.sleep(2.0)           # 2 second delay
+
+  except KeyboardInterrupt:
+    print "Terminating"
+    break
+  except IOError:
+    print "IOError, continuing"
+  except:
+    print "Unexpected error, continuing"
+    print "sys.exc_info()[0]: ", sys.exc_info()[0]</pre></code></div>
+    
+<div><b>Step 5:</b> Get your server team's IP and test their <b><code>echo</code></b> route as demonstrated in the code file above.</div>
+
+<br>
+<div><b>Step 6:</b> Verify with your server team that your traffic is arriving in their terminal.</div>

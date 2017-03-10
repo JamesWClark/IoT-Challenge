@@ -8,7 +8,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         })
         .when('/post', {
             templateUrl : 'tuts/post/index.html',
-            controller : 'staticController'
+            controller : 'postController'
         });
 
     // http://stackoverflow.com/a/41213016/1161948
