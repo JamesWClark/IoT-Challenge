@@ -2,4 +2,48 @@
 <p class="description">{{ description }}</p>
 <hr>
 
-<div><b>Step 1:</b> Create a <b><code>WebClient</code></b> folder in the root of your team project files.</div>
+<div><b>Step 1:</b> Your sensors team is getting ready to deliver JSON payloads of sensor data to your server team. Your server team in turn is going to echo the sensors payload through web sockets to all connected clients. You need to get ready to receive socket events named <b><code>echo</code></b>.</div>
+
+<div><b>Step 2:</b> In preparation, let's modify our HTML to set a couple of IDs to display the data. You previously wrote the following code. Modify it to include IDs on the two panels that currently contain the text "Panel content".</div>
+<div><code><pre>&lt;div class="col-sm-4 col-md-4">
+  &lt;div class="panel panel-default">
+    &lt;div class="panel-heading">
+      &lt;h3 class="panel-title">Temperature / Humidity&lt;/h3>
+    &lt;/div>
+    &lt;div id="dht-display" class="panel-body">
+      Panel content
+    &lt;/div>
+  &lt;/div>
+&lt;/div>
+&lt;div class="col-sm-4 col-md-4">
+  &lt;div class="panel panel-default">
+    &lt;div class="panel-heading">
+      &lt;h3 class="panel-title">Range Finder&lt;/h3>
+    &lt;/div>
+    &lt;div id="range-display" class="panel-body">
+      Panel content
+    &lt;/div>
+  &lt;/div>
+&lt;/div></pre></code></div>
+
+<br>
+<div><b>Step 3:</b> Create a <b><code>main.js</code></b> file with contents:</div>
+<div><code><pre>$(document).ready(function() {
+    var socketServer = 'http://localhost:3000/';
+    var socket = io.connect(socketServer);
+
+    socket.on('echo', function(data) {
+        console.log('socket echo = ' + JSON.stringify(data));
+        $('#dht-display').text(data.temp + "C, " + data.humi + "%");
+        $('#range-display').text(data.range);
+    });
+});</pre></code></div>
+
+<div><b>Step 4:</b> Add the <b><code>socket.io</code></b> script to your page. Put it after the other scripts.</div>
+<div><code><pre>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js">&lt;/script></pre></code></div>
+
+<div><b>Step 5:</b> Link your main script in <b><code>index.html</code></b>. Put it after your other scripts.</div>
+<div><code><pre>&lt;script src="main.js">&lt;/script></pre></code></div>
+
+<br>
+<div><b>Step 6:</b>To complete this task, two things need to happen: 1) The sensors team needs to send JSON data through this echo route, and 2) the clients team needs to connect a web socket to receive your broadcoast relay from the sensors team. When all these pieces are working together, notify your instructor.</div>
