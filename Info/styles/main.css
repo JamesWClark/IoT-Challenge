@@ -1,3 +1,4 @@
+/*
 code pre {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -6,3 +7,9 @@ code pre {
   -ms-user-select: none;
   user-select: none;
 }
+
+p.description {
+  color: #aaa;
+  font-size: 1.4em;
+}
+*/

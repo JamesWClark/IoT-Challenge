@@ -12,11 +12,13 @@
   <script src="scripts/main.js"></script>
 </head>
 
-<body ng-controller="mainController">
+<body ng-controller="serverController">
 
   <div ng-include src="'../../parts/nav.html'"></div>
 
   <div id="main" class="container" ng-view></div>
+  
+  <div ng-include src="'../../parts/footer.html'"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

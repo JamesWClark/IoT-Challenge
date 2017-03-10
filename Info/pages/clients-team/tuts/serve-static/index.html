@@ -1,2 +1,46 @@
-<h1>Serve Static</h1>
+<h1>{{ title }}</h1>
+<p class="description">{{ description }}</p>
 <hr>
+
+<div><b>Step 1:</b> Create a <b><code>WebClient</code></b> folder in the root of your team project files.</div>
+
+<br>
+<div><img src="img/project-files.jpg" alt="Project Files"></div>
+<br>
+
+<div><b>Step 2:</b> Your server team should have their own root folder, and so should your sensors team. Each team should separate their work into smaller sub projects. If not, take some time with your team and clean things up a bit. As a team, you should be managing a root project similar to the above screenshot.</div>
+
+<br>
+<div><b>Step 3:</b> In the <b><code>WebClient</code></b> folder, create an <b><code>index.html</code></b> file. This is the home page for your project. For now, let's keep it simple:</div>
+
+<div><code><pre>&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+  &lt;meta charset="UTF-8">
+  &lt;title>Document&lt;/title>
+&lt;/head>
+&lt;body>
+  &lt;h1>Site Under Construction&lt;/h1>
+&lt;/body>
+&lt;/html></pre></code></div>
+
+<div><b>Step 4:</b> Your server team is writing a server script for Node.js and you need to suggest a configuration change to their system. In your team's project files, locate their server script and find the following snippet of code:</div>
+
+<div><code><pre>app.get('/', function (req, res) {
+    res.send('Hello World!');
+});</pre></code></div>
+
+<div><b>Step 5:</b> Your server team was previously instructed to include that code and you need to ask them to delete it. You could do it yourself, but that's not your concern. You are the clients team. Give your server team the following replacement code and tell them it's middleware and should go immediately after the body parsing middleware. If they ask why, you can tell them it's necessary for Node.js to act as a static file web server which you are responsible for managing.</div>
+
+<div><code><pre>app.use('/', express.static('../WebClient/'));</pre></code></div>
+
+<div><b>Step 6:</b> Pull the server team's changes into your local repository. If this is your first time running the server, you probably need to install node packages.</div>
+
+<div><code><pre>npm install</pre></code></div>
+
+<div><b>Step 7:</b> Run their server script. Vist the "Site Under Construction" page you are hosting to verify everything's working correctly so far: <b><a href="http://localhost:3000/">http://localhost:3000/</a></b></div>
+
+<div><code><pre>node server</pre></code></div>
+
+<br>
+<div><b>Step 8:</b> Before continuing on, notify your instructor when you've completed this task.</div>

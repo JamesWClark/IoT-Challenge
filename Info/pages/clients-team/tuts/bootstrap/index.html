@@ -1,0 +1,124 @@
+<h1>{{ title }}</h1>
+<p class="description">{{ description }}</p>
+<hr>
+
+<div><b>Step 1:</b> Open your <b><code>index.html</code></b> file.</div>
+
+<br>
+<div><b>Step 2:</b> Visit the Bootstrap website: <a href="http://getbootstrap.com/" target="_blank">http://getbootstrap.com/</a></div>
+
+<br>
+<div><b>Step 3:</b> Browse through the <a href="http://getbootstrap.com/components/">Components</a> section.</div>
+
+<br>
+<div><b>Step 4:</b> Bootstrap provides a set of default styles. Visit <a href="https://cdnjs.com/" target="_blank">cdnjs.com</a> and get links to the latest version 3.</div>
+<div><code><pre>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"></pre></code></div>
+
+<div><b>Step 5:</b> Bootstrap requires jQuery. Remember, typically JavaScript libraries go before the closing &lt;/body> tag.</div>
+<div><code><pre>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">&lt;/script></pre></code></div>
+
+<div><b>Step 6:</b> And of course we need Bootstrap's JavaScript:</div>
+<div><code><pre>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js">&lt;/script></pre></code></div>
+
+<div><b>Step 7:</b> Remove the <b><code>&lt;h1>Site Under Construction&lt;/h1></code></b> message.</div>
+
+<br>
+<div><b>Step 8:</b> Add a <a href="http://getbootstrap.com/components/#navbar" target="_blank">Navbar</a>. If you follow that link you can copy/paste it.</div>
+<div><code><pre>&lt;nav class="navbar navbar-default">
+  &lt;div class="container-fluid">
+    &lt;!-- Brand and toggle get grouped for better mobile display -->
+    &lt;div class="navbar-header">
+      &lt;button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        &lt;span class="sr-only">Toggle navigation&lt;/span>
+        &lt;span class="icon-bar">&lt;/span>
+        &lt;span class="icon-bar">&lt;/span>
+        &lt;span class="icon-bar">&lt;/span>
+      &lt;/button>
+      &lt;a class="navbar-brand" href="#">Brand&lt;/a>
+    &lt;/div>
+
+    &lt;!-- Collect the nav links, forms, and other content for toggling -->
+    &lt;div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      &lt;ul class="nav navbar-nav">
+        &lt;li class="active">&lt;a href="#">Link &lt;span class="sr-only">(current)&lt;/span>&lt;/a>&lt;/li>
+        &lt;li>&lt;a href="#">Link&lt;/a>&lt;/li>
+        &lt;li class="dropdown">
+          &lt;a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown &lt;span class="caret">&lt;/span>&lt;/a>
+          &lt;ul class="dropdown-menu">
+            &lt;li>&lt;a href="#">Action&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="#">Another action&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="#">Something else here&lt;/a>&lt;/li>
+            &lt;li role="separator" class="divider">&lt;/li>
+            &lt;li>&lt;a href="#">Separated link&lt;/a>&lt;/li>
+            &lt;li role="separator" class="divider">&lt;/li>
+            &lt;li>&lt;a href="#">One more separated link&lt;/a>&lt;/li>
+          &lt;/ul>
+        &lt;/li>
+      &lt;/ul>
+      &lt;form class="navbar-form navbar-left">
+        &lt;div class="form-group">
+          &lt;input type="text" class="form-control" placeholder="Search">
+        &lt;/div>
+        &lt;button type="submit" class="btn btn-default">Submit&lt;/button>
+      &lt;/form>
+      &lt;ul class="nav navbar-nav navbar-right">
+        &lt;li>&lt;a href="#">Link&lt;/a>&lt;/li>
+        &lt;li class="dropdown">
+          &lt;a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown &lt;span class="caret">&lt;/span>&lt;/a>
+          &lt;ul class="dropdown-menu">
+            &lt;li>&lt;a href="#">Action&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="#">Another action&lt;/a>&lt;/li>
+            &lt;li>&lt;a href="#">Something else here&lt;/a>&lt;/li>
+            &lt;li role="separator" class="divider">&lt;/li>
+            &lt;li>&lt;a href="#">Separated link&lt;/a>&lt;/li>
+          &lt;/ul>
+        &lt;/li>
+      &lt;/ul>
+    &lt;/div>&lt;!-- /.navbar-collapse -->
+  &lt;/div>&lt;!-- /.container-fluid -->
+&lt;/nav></pre></code></div>
+
+<div><b>Step 9:</b> Create a <b><code>main</code></b> container:</div>
+<div><code><pre>&lt;div id="main" class="container">
+
+&lt;/div></pre></code></div>
+
+<div><b>Step 10:</b> Start thinking in grids. Bootstrap is built on a grid system of 12 units. For every row of content, you can add columns. Create a row and put a <a href="http://getbootstrap.com/components/#jumbotron">Jumbotron</a> in it.</div>
+<div><code><pre>&lt;div class="row">
+  &lt;div class="jumbotron">
+    &lt;h1>GrovePi Sensors&lt;/h1>
+    &lt;p>There be sensor data below, argh!&lt;/p>
+    &lt;p>&lt;a class="btn btn-primary btn-lg" href="#" role="button">Learn more&lt;/a>&lt;/p>
+  &lt;/div>
+&lt;/div></pre></code></div>
+
+<div><b>Step 11:</b> Change the Jumbotron to identify and describe your project.</div>
+
+<br>
+<div><b>Step 12:</b> Add another row with two panels, one for each for a different couple of sensors to be sent by the sensors team. Note the <b><code>col-md-4</code></b> and <b><code>col-sm-4</code></b> classes. These are the gutter system. Each will take up 4 units of 12 on small and medium screens.</div>
+<div><code><pre>&lt;div class="row">
+  &lt;div class="col-sm-4 col-md-4">
+    &lt;div class="panel panel-default">
+      &lt;div class="panel-heading">
+        &lt;h3 class="panel-title">Temperature / Humidity&lt;/h3>
+      &lt;/div>
+      &lt;div class="panel-body">
+        Panel content
+      &lt;/div>
+    &lt;/div>
+  &lt;/div>
+  &lt;div class="col-sm-4 col-md-4">
+    &lt;div class="panel panel-default">
+      &lt;div class="panel-heading">
+        &lt;h3 class="panel-title">Range Finder&lt;/h3>
+      &lt;/div>
+      &lt;div class="panel-body">
+        Panel content
+      &lt;/div>
+    &lt;/div>
+  &lt;/div>
+&lt;/div></pre></code></div>
+
+<div><b>Step 13:</b> When all said and done, you should have something resembling this:</div>
+
+<div><img src="img/bootstrap.jpg"></div>
