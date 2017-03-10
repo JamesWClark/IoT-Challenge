@@ -26,21 +26,21 @@ var socketio = require('socket.io');</pre></code></div>
 <div><b>Step 5:</b> Then, attach web sockets to the server object:</div>
 <div><code><pre>var io = socketio(server);</pre></code></div>
 
-<div><b>Step 6:</b> Create a POST route called <b><code>echo</code></b>.</div>
+<div><b>Step 6:</b> Create a POST route called <b><code>echo</code></b>. This route is designed to echo the original request back to the sender as well as relay it to all connected web socket clients.</div>
 <div><code><pre>app.post('/echo', function(req, res) {
     console.log('post /echo = ' + JSON.stringify(req.body));
     io.sockets.emit('echo', req.body);
     res.status(201).send(req.body);
 });</pre></code></div>
 
-<div><b>Step 7:</b> Test the echo route with ARC.</div>
-
-<br>
-<div><b>Step 8:</b> Finally, change that last line to listen on the server instead of the app object.</div>
+<div><b>Step 7:</b> Change that last line to listen on the server instead of the app object.</div>
 <div><code><pre>server.listen(3000, function () {
     console.log('Example app listening on port 3000!');
 });</pre></code></div>
 
+<div><b>Step 8:</b> Test the echo route with ARC.</div>
+
+<br>
 <div><b>Step 9:</b> Your <b><code>server.js</code></b> file should by now be similar to the following:</div>
 <div><code><pre>var bodyParser = require('body-parser');
 var express = require('express');
@@ -69,4 +69,4 @@ server.listen(3000, function () {
     console.log('Example app listening on port 3000!');
 });</pre></code></div>
 
-<div><b>Step 9:</b> To complete this task, two things need to happen: 1) The sensors team needs to send JSON data through this echo route, and 2) the clients team needs to connect a web socket to receive your broadcoast relay from the sensors team. When all these pieces are working together, notify your instructor.</div>
+<div><b>Step 10:</b> To complete this task, two things need to happen: 1) The sensors team needs to send JSON data through this echo route, and 2) the clients team needs to connect a web socket to receive your broadcoast relay from the sensors team. When all these pieces are working together, notify your instructor.</div>
