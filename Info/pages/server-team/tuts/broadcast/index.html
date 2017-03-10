@@ -13,7 +13,11 @@
   }
 }</pre></code></div>
 
-<div><b>Step 3:</b> In your server.js file, find the line that reads <b><code>var app = express();</code></b>.</div>
+<div><b>Step 3:</b> In your server.js file, require <b><code>http</code></b> and <b><code>socket.io</code></b> at the top of your server.js script.</div>
+<div><code><pre>var http = require('http');
+var socketio = require('socket.io');</pre></code></div>
+
+<div><b>Step 3:</b> Find the line that reads <b><code>var app = express();</code></b>.</div>
 
 <br>
 <div><b>Step 4:</b> Immediately following it, insert this line which creates an HTTP server from the express app object.</div>
