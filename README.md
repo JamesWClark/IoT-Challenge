@@ -1,1 +1,1 @@
-https://jameswclark.github.io/IoT-Challenge/
+https://jameswclark.github.io/IoT-Challenge/Info/
