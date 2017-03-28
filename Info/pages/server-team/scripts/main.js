@@ -12,11 +12,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         })
         .when('/hello', {
             templateUrl : 'tuts/hello/index.html',
-            controller : 'installController'
+            controller : 'helloController'
         })
         .when('/install', {
             templateUrl : 'tuts/install/index.html',
-            controller : 'helloController'
+            controller : 'installController'
         })
         .when('/post', {
             templateUrl : 'tuts/post/index.html',

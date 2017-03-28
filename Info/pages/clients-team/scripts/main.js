@@ -14,6 +14,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             templateUrl : 'tuts/broadcast/index.html',
             controller : 'broadcastController'
         })
+        .when('/maps', {
+            templateUrl : 'tuts/maps/index.html',
+            controller : 'mapsController'
+        })
         .when('/serve-static', {
             templateUrl : 'tuts/serve-static/index.html',
             controller : 'staticController'
@@ -36,6 +40,11 @@ app.controller('broadcastController', function($scope) {
 app.controller('clientsController', function($scope) {
     $scope.title = 'Clients Team';
     $scope.description = 'As a member of the clients team, you are responsible for manufacturing the end user experience. You will write web applications in JavaScript and consume web services provided by your server team.';
+});
+
+app.controller('mapsController', function($scope) {
+    $scope.title = 'Basic Maps';
+    $scope.description = 'Get a Google Maps API key and start using some basic map features in JavaScript.';
 });
 
 app.controller('staticController', function($scope) {
