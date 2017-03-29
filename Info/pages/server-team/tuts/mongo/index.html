@@ -1,0 +1,186 @@
+<h1>{{ title }}</h1>
+<p class="description">{{ description }}</p>
+<hr>
+
+<div><b>Step 1:</b> Your sensors team is busy transforming GrovePi readings into consumable JSON payloads for your server. Prepare to add value to your application by introducing data storage and retrieval with MongoDB.</div>
+
+<br>
+<div><b>Step 2:</b> Install the <a href="https://mongodb.github.io/node-mongodb-native/" target="_blank">MongoDB Node.js Driver</a>.</div>
+
+<div><code><pre>npm install mongodb --save</pre></code></div>
+
+<div><b>Step 3:</b> In the imports section at the top of your code, you need to require the Mongo client.</div>
+
+<div><code><pre>var Mongo = require('mongodb').MongoClient;</pre></code></div>
+
+<div><b>Step 4:</b> Connect to your MongoDB instance by its default URL. I've arbitrarily given this database the name <b><code>iot</code></b>.</div>
+
+<div><code><pre>const MONGO_URL = 'mongodb://localhost:27017/iot';</pre></code></div>
+
+<div><b>Step 5:</b> Connect to MongoDB, write a to-do stub for error handling but don't worry about its implementation just yet. Create an <b><code>ops</code></b> object on the Mongo connection. We will use this to transact read and write operations on a persistent connection to our database. This is appropriate because JavaScript is a single threaded language. Our server will maintain one full time connection to our database engine, MongoDB. This should perform better than opening and closing a database connection every time we need to do read write transactions.</div>
+
+<div><code><pre>Mongo.connect(MONGO_URL, function(err, db) {
+   if(err) {
+       // TODO: handle error
+   }
+   
+   Mongo.ops = {};
+});</pre></code></div>
+
+<div><b>Step 6:</b> Add a <b><code>find</code></b> operation to the <b><code>ops</code></b> object. This goes inside the Mongo connection function.</div>
+
+<div><code><pre>// Finds all documents that contain the value of `json`
+Mongo.ops.find = function(collection, json, callback) {
+    db.collection(collection).find(json).toArray(function(err, docs) {
+        if(callback) callback(err, docs);
+    });
+};</pre></code></div>
+
+<div><b>Step 7:</b> Add an <b><code>insert</code></b> operation to the <b><code>ops</code></b> object. This also goes inside the Mongo connection function.</div>
+
+<div><code><pre>// Creates a new JSON document in MongoDB
+Mongo.ops.insert = function(collection, json, callback) {
+    db.collection(collection).insert(json, function(err, result) {
+        if(callback) callback(err, result);
+    });
+};</pre></code></div>
+
+<div><b>Step 8:</b> Your entire Mongo connection should now look like the below and it should be positioned near the top of your code before you write any Express routes.</div>
+<div><code><pre>Mongo.connect(MONGO_URL, function(err, db) {
+    if(err) {
+        // TODO: handle error
+    }
+    
+    Mongo.ops = {};
+    
+    Mongo.ops.find = function(collection, json, callback) {
+        db.collection(collection).find(json).toArray(function(err, docs) {
+            if(callback) callback(err, docs);
+        });
+    };
+    
+    Mongo.ops.insert = function(collection, json, callback) {
+        db.collection(collection).insert(json, function(err, result) {
+            if(callback) callback(err, result);
+        });
+    };
+});</pre></code></div>
+
+<div><b>Step 9:</b> Now that we have create and read operations, it's time to start using them in our routes. You have an <b><code>echo</code></b> function for testing. Let's modify that one.</div>
+
+<div><code><pre>app.post('/echo', function(req, res) {
+    console.log('post /echo = ' + JSON.stringify(req.body));
+    io.sockets.emit('echo', req.body);
+    Mongo.ops.insert('echo', req.body, function(err, result) {
+        if(err)
+            res.status(500).send(error);
+        else
+            res.status(201).send(req.body);
+    });
+});</pre></code></div>
+
+<div><b>Step 10:</b> Take a look at the above code. Into the <b><code>echo</code></b> collection in MongoDB, we insert <b><code>req.body</code></b> which is really just a json object. When that insert completes, we provide a function that checks for errors. If there are no errors, we send the original json back to the user along with <a href="https://httpstatuses.com/201" target="_blank">HTTP status 201 Created</a>. If there is an error, we send <a href="https://httpstatuses.com/500" target="_blank">HTTP status 500 Internal Server Error</a>.</div>
+
+<br>
+<div><b>Step 11:</b> Test your echo route with ARC. Send a JSON payload, then verify the collection and its data exist in the Mongo shell. Following is a quick review of commands.</div>
+
+<br>
+<div><b>Step 12:</b> Connect to the Mongo shell.</div>
+<div><code><pre>mongo</pre></code></div>
+
+<div><b>Step 13:</b> Show all databases.</div>
+<div><code><pre>show dbs;</pre></code></div>
+
+<div><b>Step 14:</b> Use the <b><code>iot</code></b> database.</div>
+<div><code><pre>use iot;</pre></code></div>
+
+<div><b>Step 15:</b> Show all collections.</div>
+<div><code><pre>show collections;</pre></code></div>
+
+<div><b>Step 16:</b> Show all documents in the <b><code>echo</code></b> collection.</div>
+<div><code><pre>db.echo.find();</pre></code></div>
+
+<div><b>Step 17:</b> Following is a transcript of all the above commands:</div>
+<div><code><pre>C:\Users\JWC>mongo
+MongoDB shell version v3.4.2
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.4.2
+Server has startup warnings:
+2017-03-28T23:48:57.995-0500 I CONTROL  [initandlisten]
+2017-03-28T23:48:57.996-0500 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2017-03-28T23:48:57.996-0500 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2017-03-28T23:48:57.996-0500 I CONTROL  [initandlisten]
+> show dbs;
+admin  0.000GB
+iot    0.000GB
+local  0.000GB
+> use iot;
+switched to db iot
+> show collections;
+echo
+> db.echo.find();
+{ "_id" : ObjectId("58db452e2abe5d1b94f54a2c"), "lat" : 200, "lon" : 300, "dat" : [ 1, 2, 3 ] }
+></pre></code></div>
+
+<div><b>Step 18:</b> Before you complete the final step, your <b><code>server.js</code></b> script should look approximately like this:</div>
+<div><code><pre>var bodyParser = require('body-parser');
+var express = require('express');
+var http = require('http');
+var socketio = require('socket.io');
+var Mongo = require('mongodb').MongoClient;
+
+const MONGO_URL = 'mongodb://localhost:27017/iot';
+
+Mongo.connect(MONGO_URL, function(err, db) {
+    if(err) {
+        // TODO: handle error
+    }
+    
+    Mongo.ops = {};
+    
+    Mongo.ops.find = function(collection, json, callback) {
+        db.collection(collection).find(json).toArray(function(err, docs) {
+            if(callback) callback(err, docs);
+        });
+    };
+    
+    Mongo.ops.insert = function(collection, json, callback) {
+        db.collection(collection).insert(json, function(err, result) {
+            if(callback) callback(err, result);
+        });
+    };
+});
+
+var app = express();
+var server = http.createServer(app);
+var io = socketio(server);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', express.static('../WebClient/'));
+
+app.post('/', function(req, res) {
+    console.log('post / = ' + JSON.stringify(req.body));
+    res.status(200).send('got it');
+});
+
+app.post('/echo', function(req, res) {
+    console.log('post /echo = ' + JSON.stringify(req.body));
+    io.sockets.emit('echo', req.body);
+    Mongo.ops.insert('echo', req.body, function(err, result) {
+        if(err)
+            res.status(500).send(error);
+        else
+            res.status(201).send(req.body);
+    });
+});
+
+server.listen(3000, function () {
+    console.log('Example app listening on port 3000!');
+});
+</pre></code></div>
+
+<div><b>Step 18:</b> Following the same patterns as before, add a GET route in Express that serves data on the <b><code>/echo</code></b> path. The purpose of this route is to fetch all records in the echo collection and deliver them as an array of JSON objects.</div>
+
+<br>
+<div><b>Step 19:</b> When you have completed this task, notify your instructor.</div>
